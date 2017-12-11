@@ -215,7 +215,9 @@ namespace OpenMined.Syft.Tensor
 
 //			// Lastly: let's set the ID of the tensor.
 //			// IDEs might show a warning, but ref and volatile seems to be working with Interlocked API.
-            id = System.Threading.Interlocked.Increment (ref nCreated);
+
+            id = System.Threading.Interlocked.Increment(ref nCreated);
+
 
             ctrl.addTensor(this);
             if (SystemInfo.supportsComputeShaders && shader == null)
@@ -477,6 +479,11 @@ namespace OpenMined.Syft.Tensor
                     var result = Exp();
                     return result.Id.ToString();
                 }
+                case "exp_":
+                {
+                    Exp(inline: true);
+                    return Id.ToString();
+                }
                 case "mul_scalar":
                 {
                     FloatTensor result = Mul(float.Parse(msgObj.tensorIndexParams[0]));
@@ -560,21 +567,26 @@ namespace OpenMined.Syft.Tensor
                         }
                         case "data":
                         {
-                          string out_str = "";
+                            string out_str = "";
 
-                          if (dataOnGpu) {
-                            int[] temp_data = new int[size];
-                            dataBuffer.GetData (temp_data);
-                            for (int i = 0; i < size; i++) {
-                              out_str += temp_data [i] + ",";
+                            if (dataOnGpu)
+                            {
+                                int[] temp_data = new int[size];
+                                dataBuffer.GetData(temp_data);
+                                for (int i = 0; i < size; i++)
+                                {
+                                    out_str += temp_data[i] + ",";
+                                }
                             }
-                          } else {
-                            for (int i = 0; i < size; i++) {
-                              out_str += data [i] + ",";
+                            else
+                            {
+                                for (int i = 0; i < size; i++)
+                                {
+                                    out_str += data[i] + ",";
+                                }
                             }
-                          }
 
-                          return out_str;
+                            return out_str;
                         }
                         case "dataOnGpu":
                         {
@@ -627,6 +639,11 @@ namespace OpenMined.Syft.Tensor
                         return msgObj.functionCall + ": FAILED : Did not move data.";
                     }
                 }
+                case "log1p":
+                {
+                    var result = Log1p();
+                    return result.Id.ToString();
+                }
                 case "mul_elem":
                 {
                     var tensor_1 = ctrl.getTensor(int.Parse(msgObj.tensorIndexParams[0]));
@@ -642,9 +659,9 @@ namespace OpenMined.Syft.Tensor
                 }
                 case "mm":
                 {
-                  var tensor_1 = ctrl.getTensor (int.Parse (msgObj.tensorIndexParams [0]));
-                  var result = this.MM (tensor_1);
-                  return result.id + "";
+                    var tensor_1 = ctrl.getTensor(int.Parse(msgObj.tensorIndexParams[0]));
+                    var result = this.MM(tensor_1);
+                    return result.id + "";
                 }
                 case "pow_elem_":
                 {

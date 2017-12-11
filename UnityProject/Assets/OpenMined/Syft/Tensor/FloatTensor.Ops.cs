@@ -15,7 +15,7 @@ namespace OpenMined.Syft.Tensor
 		}
 
 		public FloatTensor Abs(bool inline = false)
-		// Returns a new Tensor with the smallest integer greater than or equal to each element
+// Returns a new Tensor with the smallest integer greater than or equal to each element
 		{
 			FloatTensor result = inline ? this : this.emptyTensorCopy();
 
@@ -26,11 +26,11 @@ namespace OpenMined.Syft.Tensor
 			else {
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								result.Data [i] = (float)(Math.Abs (Data [i]));
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        result.Data [i] = (float)(Math.Abs (Data [i]));
+					}
+				});
 			}
 			return result;
 		}
@@ -57,11 +57,11 @@ namespace OpenMined.Syft.Tensor
 
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								result.Data [i] = x.Data [i] + Data [i];
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        result.Data [i] = x.Data [i] + Data [i];
+					}
+				});
 			}
 
 
@@ -83,12 +83,12 @@ namespace OpenMined.Syft.Tensor
 				FloatTensor result = inline ? this : this.emptyTensorCopy();
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								result.Data [i] = (float)System.Math.Acos (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        result.Data [i] = (float)System.Math.Acos (d);
+					}
+				});
 				return result;
 			}
 		}
@@ -102,12 +102,12 @@ namespace OpenMined.Syft.Tensor
 				var result = inline ? this : this.emptyTensorCopy();
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								result.Data [i] = (float)System.Math.Asin (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        result.Data [i] = (float)System.Math.Asin (d);
+					}
+				});
 
 				return result;
 			}
@@ -122,12 +122,12 @@ namespace OpenMined.Syft.Tensor
 				var result = inline ? this : this.emptyTensorCopy();
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								result.Data [i] = (float)System.Math.Atan (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        result.Data [i] = (float)System.Math.Atan (d);
+					}
+				});
 
 				return result;
 			}
@@ -145,11 +145,11 @@ namespace OpenMined.Syft.Tensor
 			else {
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								result.Data [i] = value + Data [i];
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        result.Data [i] = value + Data [i];
+					}
+				});
 			}
 			return result;
 		}
@@ -178,19 +178,19 @@ namespace OpenMined.Syft.Tensor
 			{
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For(0, nCpu, workerId =>
-						{
-							var max = size * (workerId + 1) / nCpu;
-							for (var idx = size * workerId / nCpu; idx < max; idx++)
-							{
-								int col = idx % res_shape[1];
-								int row = (idx - col) / res_shape[1];
-								int row_offset = row * shape1[1];
-								for (var j = 0; j < shape1[1]; j++)
-								{
-									Data[idx] += tensor1.Data[j + row_offset] * tensor2.Data[j * shape2[1] + col];
-								}
-							}
-						});
+				{
+					var max = size * (workerId + 1) / nCpu;
+					for (var idx = size * workerId / nCpu; idx < max; idx++)
+					{
+					        int col = idx % res_shape[1];
+					        int row = (idx - col) / res_shape[1];
+					        int row_offset = row * shape1[1];
+					        for (var j = 0; j < shape1[1]; j++)
+					        {
+					                Data[idx] += tensor1.Data[j + row_offset] * tensor2.Data[j * shape2[1] + col];
+						}
+					}
+				});
 				return this;
 			}
 			else
@@ -201,7 +201,7 @@ namespace OpenMined.Syft.Tensor
 		}
 
 		public FloatTensor Ceil(bool inline = false)
-		// Returns a new Tensor with the smallest integer greater than or equal to each element
+// Returns a new Tensor with the smallest integer greater than or equal to each element
 		{
 			FloatTensor result = inline ? this : this.emptyTensorCopy();
 
@@ -214,17 +214,17 @@ namespace OpenMined.Syft.Tensor
 
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For(0, nCpu, workerId =>
-					{
-						var max = size * (workerId + 1) / nCpu;
-						for (var i = size * workerId / nCpu; i < max; i++)
-						{
-							result.Data[i] = (float) (Math.Ceiling(Data[i]));
-						}
-					});
+			{
+				var max = size * (workerId + 1) / nCpu;
+				for (var i = size * workerId / nCpu; i < max; i++)
+				{
+				        result.Data[i] = (float) (Math.Ceiling(Data[i]));
+				}
+			});
 			return result;
 		}
 
-		public FloatTensor Cos(bool inline = true)
+		public FloatTensor Cos(bool inline = false)
 		{
 			if (dataOnGpu) {
 				if (inline) { CosGPU_(); return this;}
@@ -235,14 +235,14 @@ namespace OpenMined.Syft.Tensor
 				var result = inline ? this : this.emptyTensorCopy();
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For(0, nCpu, workerId =>
-						{
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++)
-							{
-								var d = (double) Data[i];
-								result.Data[i] = (float) System.Math.Cos(d);
-							}
-						});
+				{
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++)
+					{
+					        var d = (double) Data[i];
+					        result.Data[i] = (float) System.Math.Cos(d);
+					}
+				});
 
 				return result;
 			}
@@ -259,14 +259,14 @@ namespace OpenMined.Syft.Tensor
 				var result = inline ? this : this.emptyTensorCopy();
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For(0, nCpu, workerId =>
-						{
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++)
-							{
-								var d = (double) Data[i];
-								result.Data[i] = (float) System.Math.Cosh(d);
-							}
-						});
+				{
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++)
+					{
+					        var d = (double) Data[i];
+					        result.Data[i] = (float) System.Math.Cosh(d);
+					}
+				});
 
 				return result;
 			}
@@ -293,12 +293,12 @@ namespace OpenMined.Syft.Tensor
 			else {
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++)
-							{
-								result.Data [i] = Data [i] / x.Data [i];
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++)
+					{
+					        result.Data [i] = Data [i] / x.Data [i];
+					}
+				});
 			}
 
 			if(autograd)
@@ -328,13 +328,13 @@ namespace OpenMined.Syft.Tensor
 			} else if (cpu) {
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var idx = size * workerId / nCpu; idx < max; idx++) {
-								for (var j = 0; j < ref_shape [0]; j++) {
-									Data [idx] += vector.Data [j] * matrix.Data [j + (idx * ref_shape [0])];
-								}
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var idx = size * workerId / nCpu; idx < max; idx++) {
+					        for (var j = 0; j < ref_shape [0]; j++) {
+					                Data [idx] += vector.Data [j] * matrix.Data [j + (idx * ref_shape [0])];
+						}
+					}
+				});
 			} else {
 				Debug.Log ("Data for all Tensors needs to be colocated on the same device. - CPU != GPU");
 			}
@@ -354,29 +354,31 @@ namespace OpenMined.Syft.Tensor
 			else {
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++)
-								result.Data [i] = Data [i] / value;
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++)
+						result.Data [i] = Data [i] / value;
+				});
 			}
 			return result;
 		}
 
-		public FloatTensor Exp()
+		public FloatTensor Exp(bool inline = false)
 		{
-			var result = new FloatTensor(_ctrl:ctrl, _shape:shape, _shader:this.shader);
+			//var result = new FloatTensor(_ctrl:ctrl, _shape:shape, _shader:this.shader);
+			FloatTensor result = inline ? this : this.emptyTensorCopy();
 
 			if (dataOnGpu) {
-				return ExpGPU ();
+				if (inline) { ExpGPU_(); return this;}
+				else { return ExpGPU (); }
 			} else {
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								result.Data [i] = (float)System.Math.Exp (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        result.Data [i] = (float)System.Math.Exp (d);
+					}
+				});
 			}
 			return result;
 		}
@@ -392,30 +394,30 @@ namespace OpenMined.Syft.Tensor
 			}
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For(0, nCpu, workerId =>
-					{
-						var max = size * (workerId + 1) / nCpu;
-						for (var i = size * workerId / nCpu; i < max; i++)
-						{
-							result.Data[i] = (float)(Math.Floor(this.Data[i]));
-						}
-					});
+			{
+				var max = size * (workerId + 1) / nCpu;
+				for (var i = size * workerId / nCpu; i < max; i++)
+				{
+				        result.Data[i] = (float)(Math.Floor(this.Data[i]));
+				}
+			});
 			return result;
 		}
 
 		public FloatTensor Round()
 		{
-			var result = new FloatTensor(_ctrl:ctrl, _shape:shape, _shader:this.shader);
+			var result = new FloatTensor(_ctrl: ctrl, _shape: shape, _shader: this.shader);
 
 			if (dataOnGpu) {
 				return RoundGPU ();
 			} else {
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-							        result.Data[i] = (float)(Math.Round(this.Data[i]));
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        result.Data[i] = (float)(Math.Round(this.Data[i]));
+					}
+				});
 			}
 			return result;
 		}
@@ -428,6 +430,24 @@ namespace OpenMined.Syft.Tensor
 			return false;
 		}
 
+		public FloatTensor Log1p()
+		{
+			var result = new FloatTensor(_ctrl:ctrl, _shape:shape, _shader:this.shader);
+		
+			if (dataOnGpu) {
+				return Log1pGPU ();
+			} else {
+				var nCpu = SystemInfo.processorCount;
+				Parallel.For (0, nCpu, workerId => {
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        result.Data[i] = (float)(Math.Log(1 + this.Data[i]));
+					}
+				});
+			}
+			return result;
+		}
+
 		public FloatTensor MM(FloatTensor x) {
 
 			if (this.shape.Length != 2 || x.shape.Length != 2) {
@@ -438,7 +458,7 @@ namespace OpenMined.Syft.Tensor
 			result_shape [0] = shape [0];
 			result_shape [1] = x.shape [1];
 
-			FloatTensor result = new FloatTensor (_ctrl:ctrl, _shape:result_shape);
+			FloatTensor result = new FloatTensor (_ctrl: ctrl, _shape: result_shape);
 
 			if (this.dataOnGpu) {
 				result.Gpu (shader);
@@ -500,10 +520,10 @@ namespace OpenMined.Syft.Tensor
 
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For (0, nCpu, workerId => {
-						var max = size * (workerId + 1) / nCpu;
-						for (var i = size * workerId / nCpu; i < max; i++)
-							result.Data [i] = value * Data [i];
-					});
+				var max = size * (workerId + 1) / nCpu;
+				for (var i = size * workerId / nCpu; i < max; i++)
+					result.Data [i] = value * Data [i];
+			});
 			return result;
 		}
 
@@ -540,7 +560,7 @@ namespace OpenMined.Syft.Tensor
 			return result;
 		}
 
-		public FloatTensor Pow (FloatTensor x, bool inline = true)
+		public FloatTensor Pow (FloatTensor x, bool inline = false)
 		{
 			// Check if both tensors are compatible for sum
 			SameSizeDimensionsShapeAndLocation (ref x);
@@ -563,10 +583,10 @@ namespace OpenMined.Syft.Tensor
 
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++)
-								result.Data [i] = (float)Math.Pow ((double)Data [i], x.Data [i]);
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++)
+						result.Data [i] = (float)Math.Pow ((double)Data [i], x.Data [i]);
+				});
 			}
 
 			HookAutograd (ref result, ref x, "pow_elem");
@@ -589,10 +609,10 @@ namespace OpenMined.Syft.Tensor
 
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++)
-								result.Data [i] = (float)Math.Pow ((double)Data [i], value);
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++)
+						result.Data [i] = (float)Math.Pow ((double)Data [i], value);
+				});
 			}
 
 			HookAutograd (ref result, value, "pow_scalar");
@@ -625,13 +645,13 @@ namespace OpenMined.Syft.Tensor
 				return RsqrtGPU ();
 			}
 
-			var result = new FloatTensor(_ctrl:ctrl, _shape:shape, _shader:this.shader);
+			var result = new FloatTensor(_ctrl: ctrl, _shape: shape, _shader: this.shader);
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For(0, nCpu, workerId => {
-						var max = data.Length * (workerId + 1) / nCpu;
-						for (var i = data.Length * workerId / nCpu; i < max; i++)
-							result.data[i] = 1/(float)Math.Sqrt(data[i]);
-					});
+				var max = data.Length * (workerId + 1) / nCpu;
+				for (var i = data.Length * workerId / nCpu; i < max; i++)
+					result.data[i] = 1/(float)Math.Sqrt(data[i]);
+			});
 			return result;
 		}
 
@@ -647,10 +667,10 @@ namespace OpenMined.Syft.Tensor
 
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For (0, nCpu, workerId => {
-						var max = data.Length * (workerId + 1) / nCpu;
-						for (var i = data.Length * workerId / nCpu; i < max; i++)
-							result.data [i] = (float)Math.Sign (data [i]);
-					});
+				var max = data.Length * (workerId + 1) / nCpu;
+				for (var i = data.Length * workerId / nCpu; i < max; i++)
+					result.data [i] = (float)Math.Sign (data [i]);
+			});
 			return result;
 		}
 
@@ -663,12 +683,12 @@ namespace OpenMined.Syft.Tensor
 				var result = inline ? this : this.emptyTensorCopy();
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								result.Data [i] = (float)System.Math.Sin (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        result.Data [i] = (float)System.Math.Sin (d);
+					}
+				});
 				return result;
 			}
 		}
@@ -681,7 +701,7 @@ namespace OpenMined.Syft.Tensor
 				data [dim] = shape [dim];
 			}
 
-			FloatTensor result = new FloatTensor (_ctrl: ctrl, _data:data, _shape:ndims);
+			FloatTensor result = new FloatTensor (_ctrl: ctrl, _data: data, _shape: ndims);
 			return result;
 		}
 
@@ -692,15 +712,15 @@ namespace OpenMined.Syft.Tensor
 				return SqrtGPU ();
 			}
 
-			var result = new FloatTensor (_ctrl: ctrl, _shape:shape, _shader:shader);
+			var result = new FloatTensor (_ctrl: ctrl, _shape: shape, _shader: shader);
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For (0, nCpu, workerId => {
-						var max = data.Length * (workerId + 1) / nCpu;
-						for (var i = data.Length * workerId / nCpu; i < max; i++) {
-							var d = (double)data [i];
-							result.data [i] = (float)Math.Sqrt (d);
-						}
-					});
+				var max = data.Length * (workerId + 1) / nCpu;
+				for (var i = data.Length * workerId / nCpu; i < max; i++) {
+				        var d = (double)data [i];
+				        result.data [i] = (float)Math.Sqrt (d);
+				}
+			});
 
 			return result;
 		}
@@ -716,14 +736,14 @@ namespace OpenMined.Syft.Tensor
 			}
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For (0, nCpu, workerId => {
-						var max = size * (workerId + 1) / nCpu;
-						for (var i = size * workerId / nCpu; i < max; i++)
-							result.Data [i] = Data [i] - value;
-					});
+				var max = size * (workerId + 1) / nCpu;
+				for (var i = size * workerId / nCpu; i < max; i++)
+					result.Data [i] = Data [i] - value;
+			});
 			return result;
 		}
 
-		public FloatTensor Tan (bool inline = true)
+		public FloatTensor Tan (bool inline = false)
 		{
 			if (dataOnGpu) {
 				if (inline) { TanGPU_(); return this; }
@@ -732,12 +752,12 @@ namespace OpenMined.Syft.Tensor
 				var result = inline ? this : this.emptyTensorCopy();
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								result.Data [i] = (float)System.Math.Tan (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        result.Data [i] = (float)System.Math.Tan (d);
+					}
+				});
 				return result;
 			}
 		}
@@ -747,15 +767,15 @@ namespace OpenMined.Syft.Tensor
 			if (dataOnGpu) {
 				return TanhGPU ();
 			} else {
-				var result = new FloatTensor (_ctrl: ctrl, _shape:shape, _shader:this.shader);
+				var result = new FloatTensor (_ctrl: ctrl, _shape: shape, _shader: this.shader);
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								result.Data [i] = (float)System.Math.Tanh (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        result.Data [i] = (float)System.Math.Tanh (d);
+					}
+				});
 
 				return result;
 			}
@@ -774,15 +794,15 @@ namespace OpenMined.Syft.Tensor
 			if (dataOnGpu) {
 				return TruncGPU ();
 			} else {
-				var result = new FloatTensor (_ctrl: ctrl, _shape:shape, _shader:this.shader);
+				var result = new FloatTensor (_ctrl: ctrl, _shape: shape, _shader: this.shader);
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								result.Data [i] = (float)System.Math.Truncate (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        result.Data [i] = (float)System.Math.Truncate (d);
+					}
+				});
 
 				return result;
 			}
@@ -805,18 +825,18 @@ namespace OpenMined.Syft.Tensor
 			new_shape [dimension1] = new_shape [dimension2];
 			new_shape [dimension2] = tmp_dim;
 
-			var result = new FloatTensor (_ctrl: ctrl, _shape:new_shape, _shader:this.shader);
+			var result = new FloatTensor (_ctrl: ctrl, _shape: new_shape, _shader: this.shader);
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For (0, nCpu, workerId => {
-						var max = size * (workerId + 1) / nCpu;
-						for (var i = size * workerId / nCpu; i < max; i++) {
-							var idxs = GetIndices (i);
-							long tmp = idxs [dimension1];
-							idxs [dimension1] = idxs [dimension2];
-							idxs [dimension2] = tmp;
-							result [idxs] = this [i];
-						}
-					});
+				var max = size * (workerId + 1) / nCpu;
+				for (var i = size * workerId / nCpu; i < max; i++) {
+				        var idxs = GetIndices (i);
+				        long tmp = idxs [dimension1];
+				        idxs [dimension1] = idxs [dimension2];
+				        idxs [dimension2] = tmp;
+				        result [idxs] = this [i];
+				}
+			});
 
 			return result;
 		}
@@ -834,19 +854,19 @@ namespace OpenMined.Syft.Tensor
 			}
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For (0, nCpu, workerId => {
-						var max = size * (workerId + 1) / nCpu;
-						for (var i = size * workerId / nCpu; i < max; i++) {
-							int col = i % this.shape [1];
-							int row = (i - col) / this.shape [1];
-							if (col < row + k) {
-								Data [i] = 0.0f;
-							}
-						}
-					});
+				var max = size * (workerId + 1) / nCpu;
+				for (var i = size * workerId / nCpu; i < max; i++) {
+				        int col = i % this.shape [1];
+				        int row = (i - col) / this.shape [1];
+				        if (col < row + k) {
+				                Data [i] = 0.0f;
+					}
+				}
+			});
 
 		}
 
-		public FloatTensor Sinh (bool inline = true)
+		public FloatTensor Sinh (bool inline = false)
 		{
 			if (dataOnGpu) {
 				if (inline) { SinhGPU_(); return this; }
@@ -855,12 +875,12 @@ namespace OpenMined.Syft.Tensor
 				var result = inline ? this : this.emptyTensorCopy();
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								result.Data [i] = (float)System.Math.Sinh (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        result.Data [i] = (float)System.Math.Sinh (d);
+					}
+				});
 
 				return result;
 			}
@@ -873,19 +893,19 @@ namespace OpenMined.Syft.Tensor
 			} else {
 				var nCpu = SystemInfo.processorCount;
 				Parallel.For (0, nCpu, workerId => {
-							var max = size * (workerId + 1) / nCpu;
-							for (var i = size * workerId / nCpu; i < max; i++) {
-								var d = (double)Data [i];
-								Data [i] = (float)System.Math.Sinh (d);
-							}
-						});
+					var max = size * (workerId + 1) / nCpu;
+					for (var i = size * workerId / nCpu; i < max; i++) {
+					        var d = (double)Data [i];
+					        Data [i] = (float)System.Math.Sinh (d);
+					}
+				});
 			}
 		}
 
 		public float Trace()
 		{
 			if ((shape.Length != 2) || (shape[0] != shape[1]))
-			throw new InvalidOperationException("Trace is defined on square 2d matrices only.");
+				throw new InvalidOperationException("Trace is defined on square 2d matrices only.");
 
 			if (dataOnGpu)
 			{
@@ -920,13 +940,13 @@ namespace OpenMined.Syft.Tensor
 				Parallel.For (0, nCpu, workerId => {
 					var max = size * (workerId + 1) / nCpu;
 					for (var i = size * workerId / nCpu; i < max; i++) {
-						if (this.Data [i] >= 0)
-						{	
-							double s = Math.Exp (-(double)this.Data [i]);
-							result.Data [i] = (float)(1 / (1.0f + s));
+					        if (this.Data [i] >= 0)
+					        {
+					                double s = Math.Exp (-(double)this.Data [i]);
+					                result.Data [i] = (float)(1 / (1.0f + s));
 						} else {
-							double s = Math.Exp ((double)this.Data [i]);
-							result.Data [i] = (float)(s / (1.0f + s));
+					                double s = Math.Exp ((double)this.Data [i]);
+					                result.Data [i] = (float)(s / (1.0f + s));
 						}
 					}
 				});
@@ -958,7 +978,7 @@ namespace OpenMined.Syft.Tensor
 						shapeBuffer.SetData (shape);
 					}
 					else {
-						result = new FloatTensor (_ctrl: ctrl, _shape:new_shape, _shader:this.shader);
+						result = new FloatTensor (_ctrl: ctrl, _shape: new_shape, _shader: this.shader);
 						result.Gpu (shader);
 						CopyBuffer(dataBuffer, result.DataBuffer);
 					}
@@ -969,7 +989,7 @@ namespace OpenMined.Syft.Tensor
 				}
 				else
 				{
-					result = new FloatTensor (_ctrl: ctrl, _data:data, _shape:new_shape, _shader:shader);
+					result = new FloatTensor (_ctrl: ctrl, _data: data, _shape: new_shape, _shader: shader);
 				}
 			}
 			return result;
@@ -989,11 +1009,11 @@ namespace OpenMined.Syft.Tensor
 
 			var nCpu = SystemInfo.processorCount;
 			Parallel.For(0, nCpu, workerId =>
-					{
-						var max = data.Length * (workerId + 1) / nCpu;
-						for (int i = data.Length * workerId / nCpu; i < max; i++)
-						{ this.Data[i] = 0; }
-					});
+			{
+				var max = data.Length * (workerId + 1) / nCpu;
+				for (int i = data.Length * workerId / nCpu; i < max; i++)
+				{ this.Data[i] = 0; }
+			});
 		}
 
 
@@ -1052,12 +1072,12 @@ namespace OpenMined.Syft.Tensor
 			return result;
 		}
 
-		/*** Reduce Functions ***/
+/*** Reduce Functions ***/
 
 		public FloatTensor Reduce(
-			Func<float, float, long, float[], float> reducer,
-			Func<float, long, float> mapper
-		)
+		                          Func<float, float, long, float[], float> reducer,
+		                          Func<float, long, float> mapper
+		                          )
 		{
 			int[] outDims = { 1 };
 			float[] output = new float[1];
@@ -1067,11 +1087,11 @@ namespace OpenMined.Syft.Tensor
 		}
 
 		public FloatTensor Reduce(
-			long dim,
-			bool keepdim,
-			Func<float, float, long, float[], float> reducer,
-			Func<float, long, float> mapper
-		)
+		                          long dim,
+		                          bool keepdim,
+		                          Func<float, float, long, float[], float> reducer,
+		                          Func<float, long, float> mapper
+		                          )
 		{
 			long len = shape.Length;
 
@@ -1124,7 +1144,7 @@ namespace OpenMined.Syft.Tensor
 
 				for (long i = 1; i < length; i++)
 				{
-					acc = reducer(acc, vals[i], i, vals);
+				        acc = reducer(acc, vals[i], i, vals);
 				}
 
 				output[index] = mapper(acc, length);
@@ -1135,30 +1155,35 @@ namespace OpenMined.Syft.Tensor
 
 		public FloatTensor Min(long dim = -1, bool keepdim = false)
 		{
+			// TODO: Implement GPU op. with GPU tests.
 			return Reduce(dim, keepdim, (acc, val, index, arr) => acc < val ? acc : val, (val, len) => val);
 		}
 
 		public FloatTensor Max(long dim = -1, bool keepdim = false)
 		{
+			// TODO: Implement GPU op. with GPU tests.
 			return Reduce(dim, keepdim, (acc, val, index, arr) => acc > val ? acc : val, (val, len) => val);
 		}
 
 		public FloatTensor Sum(long dim = -1, bool keepdim = false)
 		{
+			// TODO: Implement GPU op. with GPU tests.
 			return Reduce(dim, keepdim, (acc, val, index, arr) => acc + val, (val, len) => val);
 		}
 
 		public FloatTensor Prod(long dim = -1, bool keepdim = false)
 		{
+			// TODO: Implement GPU op. with GPU tests.
 			return Reduce(dim, keepdim, (acc, val, index, arr) => acc * val, (val, len) => val);
 		}
 
 		public FloatTensor Mean(long dim = -1, bool keepdim = false)
 		{
+			// TODO: Implement GPU op. with GPU tests.
 			return Reduce(dim, keepdim, (acc, val, index, arr) => acc + val, (val, len) => val / (float)len);
 		}
 
-		/*** Reduce Functions End ***/
+/*** Reduce Functions End ***/
 
 // closes class and namespace
 	}
